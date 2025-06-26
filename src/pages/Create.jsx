@@ -91,7 +91,7 @@ const handleSubmit = async (e) => {
   };
 
   try {
-    const response = await fetch("http://localhost:5000/api/events/create", {
+    const response = await fetch("https://pro-backend-m2v3.onrender.com/api/events/create", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
