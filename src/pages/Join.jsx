@@ -44,64 +44,19 @@ const Join = () => {
     "Your Vision, Our Mission"
   ];
 
-  const staticEvents = [
-    {
-      name: "Sunset Wedding Gala",
-      type: "Weddings",
-      details: "Unforgettable beachside wedding ceremony.",
-      date: "2025-08-10",
-      time: "17:00",
-      venue: "Ocean View Resort",
-      image: WEDDING
-    },
-    {
-      name: "Neon Music Fest",
-      type: "Concerts",
-      details: "Electrifying night concert.",
-      date: "2025-07-15",
-      time: "20:00",
-      venue: "City Amphitheater",
-      image: CONCERTS
-    },
-    {
-      name: "Happy Street Carnival",
-      type: "Happy Streets",
-      details: "Fun, food, and music in car-free streets!",
-      date: "2025-07-05",
-      time: "10:00",
-      venue: "Downtown Main Street",
-      image: HAPPY
+  useEffect(() => {
+    const user = JSON.parse(localStorage.getItem("loggedInUser"));
+    if (!user) {
+      alert("Please login to join an event.");
+      navigate("/login");
+      return;
     }
-  ];
 
-useEffect(() => {
-  const user = JSON.parse(localStorage.getItem("loggedInUser"));
-  if (!user) {
-    alert("Please login to join an event.");
-    navigate("/login");
-    return;
-  }
-
-  const fetchEvents = async () => {
-    try {
-      const res = await fetch("http://localhost:5000/api/events");
-      const data = await res.json();
-      if (res.ok) {
-        // Map event type to image
-        const enriched = data.map(event => {
-          const matched = staticEvents.find(e => e.type === event.type);
-          return { ...event, image: matched?.image || EVENT1 };
-        });
-        setEvents([...staticEvents, ...enriched]); // optional: include static events too
-      }
-    } catch (err) {
-      console.error("Error fetching events:", err);
-    }
-  };
-
-  fetchEvents();
-}, [navigate]);
-
+    fetch("/api/events")
+      .then(res => res.json())
+      .then(data => setEvents(data))
+      .catch(() => setEvents([]));
+  }, [navigate]);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -110,37 +65,20 @@ useEffect(() => {
     return () => clearInterval(interval);
   }, []);
 
-const handleJoin = async (event) => {
-  const user = JSON.parse(localStorage.getItem("loggedInUser"));
-  if (!user) {
-    alert("Please login first.");
-    navigate("/login");
-    return;
-  }
-
-  try {
-    const res = await fetch(`http://localhost:5000/api/events/join/${event._id}`, {
-      method: 'POST',
+  const handleJoin = (event) => {
+    const user = JSON.parse(localStorage.getItem("loggedInUser"));
+    fetch("/api/join", {
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json',
+        'Content-Type': 'application/json'
       },
-      body: JSON.stringify({ user: user.email })
-    });
-
-    const result = await res.json();
-
-    if (res.ok) {
-      alert("🎉 You have successfully joined the event! Get ready to go!");
-      navigate("/dashboard");
-    } else {
-      alert(`❌ Error: ${result.error}`);
-    }
-  } catch (err) {
-    console.error(err);
-    alert("Failed to join the event. Please try again.");
-  }
-};
-
+      body: JSON.stringify({ ...event, user: user.email })
+    })
+      .then(() => {
+        alert("🎉 You have successfully joined the event! Get ready to go!");
+        navigate("/dashboard");
+      });
+  };
 
   return (
     <>

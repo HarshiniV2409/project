@@ -4,7 +4,7 @@ import { useNavigate, Link } from 'react-router-dom';
 import '../style.css';
 import targetLogo from '../assets/target.png';
 import backgroundImage from '../assets/BACKGROUND.jpg';
-import user from '../assets/default-user.jpg';
+
 const Navbar = () => {
   const navigate = useNavigate();
 
@@ -39,28 +39,38 @@ const Dashboard = () => {
 
   useEffect(() => {
     const loggedInUser = JSON.parse(localStorage.getItem('loggedInUser'));
-    if (!loggedInUser) navigate('/login');
+    if (!loggedInUser) return navigate('/login');
     setUser(loggedInUser);
-    const allCreated = JSON.parse(localStorage.getItem('createdEvents')) || [];
-    const allJoined = JSON.parse(localStorage.getItem('joinedEvents')) || [];
-    setCreatedEvents(allCreated.filter(e => e.user === loggedInUser.email));
-    setJoinedEvents(allJoined.filter(e => e.user === loggedInUser.email));
+
+    fetch('/api/events')
+      .then(res => res.json())
+      .then(allEvents => {
+        setCreatedEvents(allEvents.filter(e => e.user === loggedInUser.email));
+      });
+
+    fetch('/api/joined')
+      .then(res => res.json())
+      .then(joined => {
+        setJoinedEvents(joined.filter(e => e.user === loggedInUser.email));
+      });
   }, [navigate]);
 
-  const handleDelete = (eventName) => {
-    const updated = createdEvents.filter(e => e.name !== eventName);
-    setCreatedEvents(updated);
-    const allEvents = JSON.parse(localStorage.getItem('createdEvents')) || [];
-    const filtered = allEvents.filter(e => e.name !== eventName || e.user !== user.email);
-    localStorage.setItem('createdEvents', JSON.stringify(filtered));
+  const handleDelete = async (eventName) => {
+    await fetch(`/api/events/delete`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ name: eventName, user: user.email })
+    });
+    setCreatedEvents(prev => prev.filter(e => e.name !== eventName));
   };
 
-  const handleUnjoin = (eventName) => {
-    const updated = joinedEvents.filter(e => e.name !== eventName);
-    setJoinedEvents(updated);
-    const allEvents = JSON.parse(localStorage.getItem('joinedEvents')) || [];
-    const filtered = allEvents.filter(e => e.name !== eventName || e.user !== user.email);
-    localStorage.setItem('joinedEvents', JSON.stringify(filtered));
+  const handleUnjoin = async (eventName) => {
+    await fetch(`/api/unjoin`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ name: eventName, user: user.email })
+    });
+    setJoinedEvents(prev => prev.filter(e => e.name !== eventName));
   };
 
   return (
@@ -84,7 +94,7 @@ const Dashboard = () => {
 
         {user && (
           <div style={{ textAlign: 'center', marginBottom: '30px' }}>
-           <h1> WELCOME TO ELITE EVENTS!!</h1>
+            <h1>WELCOME TO ELITE EVENTS!!</h1>
             <h3 style={{ marginTop: '15px', fontSize: '1.7em' }}>{user.name}</h3>
             <p style={{ fontSize: '1.1em' }}>{user.email}</p>
           </div>

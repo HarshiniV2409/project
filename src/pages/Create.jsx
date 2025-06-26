@@ -8,7 +8,7 @@ const Navbar = () => {
     <header className="main-header">
       <div className="logo">
         <img src={targetLogo} alt="Elite Events Logo" />
-        <h1>ELITE EVENTS</h1>
+        <h1 style={{ color: '#ffd700', fontFamily: 'Poppins, sans-serif', fontSize: '1.8em' }}>ELITE EVENTS</h1>
       </div>
       <nav className="main-nav">
         <ul>
@@ -43,6 +43,15 @@ const Create = () => {
     venue: ''
   });
 
+  const eventTypes = [
+    'Weddings',
+    'Birthdays',
+    'Concerts',
+    'College Fests',
+    'Happy Streets',
+    'Conferences'
+  ];
+
   useEffect(() => {
     const loggedInUser = JSON.parse(localStorage.getItem('loggedInUser'));
     if (!loggedInUser) {
@@ -60,15 +69,6 @@ const Create = () => {
     return () => clearInterval(interval);
   }, []);
 
-  const eventTypes = [
-    'Weddings',
-    'Birthdays',
-    'Concerts',
-    'College Fests',
-    'Happy Streets',
-    'Conferences'
-  ];
-
   const handleChange = (e) => {
     setFormData({
       ...formData,
@@ -76,48 +76,43 @@ const Create = () => {
     });
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const handleSubmit = async (e) => {
+const handleSubmit = async (e) => {
   e.preventDefault();
 
   const eventData = {
-    user: user.email, // or user.username depending on your login
+    user: user.email,
     name: formData.name,
     type: formData.type,
     details: formData.details,
     phone: formData.phone,
     date: formData.date,
     time: formData.time,
-    venue: formData.venue,
+    venue: formData.venue
   };
 
   try {
-    const response = await fetch('http://localhost:5000/api/events/create', {
-      method: 'POST',
+    const response = await fetch("http://localhost:5000/api/events/create", {
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json"
       },
-      body: JSON.stringify(eventData),
+      body: JSON.stringify(eventData)
     });
 
     const result = await response.json();
 
     if (response.ok) {
-      alert('🎉 Thanks for creating the event! Our team will contact you for further details.');
-      navigate('/dashboard');
+      alert("🎉 Thanks for creating the event! Our team will contact you for further details.");
+      navigate("/dashboard");
     } else {
       alert(`❌ Error: ${result.error}`);
     }
-  } catch (err) {
-    console.error(err);
-    alert('Something went wrong while creating the event!');
+  } catch (error) {
+    console.error("Create error:", error);
+    alert("❌ Something went wrong while creating the event!");
   }
 };
 
-    alert('🎉 Thanks for creating the event! Our team will contact you for further details.');
-    navigate('/dashboard');
-  };
 
   return (
     <>
@@ -125,6 +120,7 @@ const Create = () => {
       <div style={styles.loginBox}>
         <h2 style={styles.heading}>🛠 Create an Event</h2>
         <div style={styles.quote}>{quotes[quoteIndex]}</div>
+
         <form onSubmit={handleSubmit} style={styles.formGrid}>
           <input
             type="text"
@@ -214,7 +210,8 @@ const styles = {
     width: '90%',
     maxWidth: '600px',
     textAlign: 'center',
-    margin: '30px auto'
+    margin: '30px auto',
+    fontFamily: 'Poppins, sans-serif'
   },
   heading: {
     marginBottom: '10px',
