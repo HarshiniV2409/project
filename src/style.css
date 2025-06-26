@@ -1,0 +1,493 @@
+/* Universal Styles & Reset (Optional but Recommended) */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: sans-serif; /* Replace with your actual font */
+    color: #fff; /* Main text color */
+    background-color: #2c004d; /* Dark purple background */
+    line-height: 1.6;
+}
+
+/* Header */
+.main-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 50px;
+    background-color: #5d008e;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+
+.main-header .logo {
+    display: flex;
+    align-items: center;
+}
+
+.main-header .logo img {
+    height: 40px; /* Adjust as needed */
+    margin-right: 10px;
+}
+
+.main-header .logo h1 {
+    font-size: 2em; /* Adjust as needed */
+    color: #ffd700; /* Gold color */
+    font-family: 'YourLogoFont', cursive; /* Replace with your actual logo font */
+}
+
+.main-nav ul {
+    list-style: none;
+    display: flex;
+}
+
+.main-nav ul li {
+    margin-left: 30px;
+}
+
+.main-nav ul li a {
+    text-decoration: none;
+    color: #fff;
+    font-size: 1.1em;
+    padding: 5px 0;
+    transition: color 0.3s ease;
+}
+
+.main-nav ul li a:hover {
+    color: #ffd700;
+}
+
+.hero-section {
+    text-align: center;
+    padding: 50px 20px;
+    background: linear-gradient(to bottom, #4b0082, #000000);
+    min-height: 10vh; /* full viewport height */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+/* Services Section */
+.services-section {
+    /* Moved background image from inline HTML to CSS */
+    background-image: url("./assets/BACKGROUND.jpg");
+ /* REPLACE with the actual path to your background image */
+    background-size: cover;
+    background-position: center;
+    background-color: #2c004d; /* Dark purple matching body background (as a fallback) */
+    padding: 80px 20px;
+    text-align: center;
+}
+
+.services-section h2 {
+    font-size: 2.5em;
+    color: #fff;
+    margin-bottom: 50px;
+    font-family: 'YourHeaderFont', sans-serif; /* Replace */
+}
+
+.services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* 3 columns, adjust as needed */
+    gap: 30px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.service-item {
+    background-color: #3f006b; /* Slightly lighter purple for service cards */
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    transition: transform 0.3s ease;
+    display: flex; /* Added flex to center content vertically */
+    flex-direction: column; /* Stack content vertically */
+    justify-content: space-between; /* Distribute space between content */
+    align-items: center; /* Center content horizontally */
+    min-height: 350px; /* Added min-height to ensure consistent rectangle size */
+}
+
+.service-item:hover {
+    transform: translateY(-5px);
+}
+
+.service-item img {
+    /* Made images bigger fitting to the rectangle */
+    width: 100%;
+    height: 200px; /* Fixed height for the image within the rectangle */
+    object-fit: cover; /* Ensures image covers the area, cropping if necessary */
+    margin-bottom: 20px;
+    border-radius: 5px; /* Optional: slight border-radius for the image */
+}
+
+.service-item h3 {
+    font-size: 1.8em;
+    color: #ffd700; /* Gold */
+    margin-bottom: 10px;
+}
+
+.service-item p {
+    font-size: 1em;
+    color: #ccc;
+}
+
+/* Call to Action Section (Why Choose & Get in Touch) */
+.cta-section {
+    display: flex;
+    justify-content: space-around;
+    padding: 80px 50px;
+    background-color: #1a002e; /* Darker purple for this section */
+    /* This section has a wave-like bottom border in your design.
+       This can be achieved with SVG masks, pseudo-elements with clip-path,
+       or a background image. This is complex CSS. */
+}
+
+.why-choose,
+.get-in-touch {
+    flex: 1;
+    max-width: 500px; /* Adjust max-width */
+    padding: 20px;
+}
+
+.why-choose h2,
+.get-in-touch h2 {
+    font-size: 2em;
+    color: #fff;
+    margin-bottom: 30px;
+    font-family: 'YourHeaderFont', sans-serif; /* Replace */
+}
+
+.why-choose ul {
+    list-style: none;
+}
+
+.why-choose ul li {
+    font-size: 1.2em;
+    color: #ffd700; /* Gold */
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+}
+
+.why-choose ul li::before {
+    content: attr(data-icon); /* You might use icons here or just text symbols */
+    margin-right: 10px;
+    font-size: 1.5em; /* Adjust icon size */
+    color: #fff; /* White icon color */
+}
+
+.get-in-touch p {
+    font-size: 1.1em;
+    color: #ccc;
+    margin-bottom: 10px;
+}
+
+.get-in-touch label {
+    display: flex;
+    align-items: center;
+    margin-top: 20px;
+    color: #ccc;
+    font-size: 1em;
+}
+
+.get-in-touch input[type="checkbox"] {
+    margin-right: 10px;
+    transform: scale(1.2);
+}
+
+/* Footer */
+footer {
+    text-align: center;
+    padding: 30px 20px;
+    background-color: #0d001a; /* Even darker purple for footer */
+    font-size: 0.9em;
+    color: #888;
+}
+
+footer p {
+    margin-bottom: 5px;
+}
+.about-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 80px 60px;
+  background-color: #2b004d;
+  gap: 50px;
+  flex-wrap: wrap;
+}
+
+.about-text {
+  flex: 1;
+  color: #fff;
+  font-family: 'Comic Neue', cursive;
+  font-size: 1.3em;
+  line-height: 1.7;
+  max-width: 600px;
+}
+
+.about-text h2 {
+  font-size: 2.5em;
+  color: #ffd700;
+  margin-bottom: 20px;
+  font-family: 'Chewy', cursive;
+  text-align: left;
+}
+
+.about-text span {
+  font-weight: bold;
+  color: #ffcc00;
+}
+
+.about-images {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+}
+
+.about-images img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 12px;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+}
+.quotes-container {
+  text-align: center;
+  font-family: 'Comic Neue', cursive;
+  font-size: 1.6em;
+  color: #ffccff;
+  margin-top: 30px;
+  animation: fade 1s ease-in-out;
+  min-height: 50px;
+}
+
+@keyframes fade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+/* Register & Login Common Form Styles */
+.form-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: #2c004d;
+  background-image: url('./assets/BACKGROUND.jpg'); /* optional */
+  background-size: cover;
+  background-position: center;
+  padding: 20px;
+}
+
+.form-card {
+  background-color: white;
+  padding: 40px 30px;
+  border-radius: 18px;
+  box-shadow: 0 10px 35px rgba(0, 0, 0, 0.3);
+  max-width: 450px;
+  width: 100%;
+  text-align: center;
+  animation: fadeIn 1s ease-in;
+}
+
+.form-card h2 {
+  color: #5b2a9d;
+  font-size: 1.8em;
+  margin-bottom: 10px;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.form-card .quote {
+  color: #777;
+  font-size: 0.95em;
+  margin-bottom: 20px;
+  min-height: 24px;
+  font-style: italic;
+}
+
+.form-card input {
+  width: 100%;
+  padding: 12px 15px;
+  margin: 8px 0;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 15px;
+  font-family: 'Segoe UI', sans-serif;
+  transition: border 0.3s;
+}
+
+.form-card input:focus {
+  border-color: #5b2a9d;
+  outline: none;
+}
+
+.form-card button {
+  width: 100%;
+  padding: 12px;
+  background-color: #5b2a9d;
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+  border: none;
+  border-radius: 10px;
+  margin-top: 12px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.form-card button:hover {
+  background-color: #4a2280;
+  transform: scale(1.03);
+}
+
+.redirect {
+  margin-top: 18px;
+  font-size: 14px;
+  color: #333;
+}
+
+.redirect a {
+  display: inline-block;
+  margin-top: 8px;
+  padding: 8px 16px;
+  background-color: #f0e6ff;
+  color: #5b2a9d;
+  border-radius: 10px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: all 0.3s ease;
+}
+
+.redirect a:hover {
+  background-color: #e2d2ff;
+}
+
+/* Fade animation */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.back-home {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.home-link {
+  display: inline-block;
+  padding: 10px 18px;
+  background-color: #f0e6ff;
+  color: #5b2a9d;
+  font-weight: bold;
+  border-radius: 10px;
+  text-decoration: none;
+  transition: background-color 0.3s ease;
+}
+
+.home-link:hover {
+  background-color: #e2d2ff;
+}
+.dashboard-wrapper {
+  padding: 60px 40px;
+  background-color: #f3f0ff;
+  min-height: 100vh;
+  text-align: center;
+  color: #2c004d;
+}
+
+.dashboard-card {
+  background: white;
+  padding: 40px;
+  border-radius: 20px;
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+  margin-bottom: 40px;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.profile-image {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  border: 4px solid #a66cff;
+  object-fit: cover;
+  margin-bottom: 20px;
+}
+
+.event-columns {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  gap: 30px;
+}
+
+.event-column {
+  background-color: #fff;
+  padding: 25px;
+  border-radius: 12px;
+  width: 300px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+.event-column h3 {
+  color: #5b2a9d;
+  margin-bottom: 60px;
+}
+
+.event-list {
+  list-style: none;
+  padding: 0;
+}
+
+.event-list li {
+  padding: 8px 0;
+  color: #333;
+  font-size: 1em;
+}
+.events-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 25px;
+  padding: 30px;
+  justify-items: center;
+}
+
+.event-card {
+  background-color: #fff;
+  color: #2c004d;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 400px;
+  transition: transform 0.3s ease;
+}
+
+.event-card:hover {
+  transform: translateY(-5px);
+}
+
+.event-card h3 {
+  color: #5b2a9d;
+}
+
+.event-card button {
+  background-color: #5b2a9d;
+  color: white;
+  padding: 10px 16px;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  margin-top: 10px;
+  cursor: pointer;
+}
+
+.event-card button:hover {
+  background-color: #4a2280;
+}
